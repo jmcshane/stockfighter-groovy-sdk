@@ -2,6 +2,7 @@ package mc.shane.stockfighter.api
 
 import spock.lang.Specification
 import groovyx.net.http.RESTClient
+import groovyx.net.http.ContentType
 
 class StockfighterApiSpec extends Specification {
 
@@ -9,18 +10,18 @@ class StockfighterApiSpec extends Specification {
 	def account = "testaccount"
 	def venue = "testvenue"
 	def stock = "teststock"
+	def key = "testkey"
 
 	def sut
-
-	def setup() {
-		sut = new StockfighterApi("testkey",account,venue,stock,mockEndpoint)
-	}
 
 	def "venue heartbeat hits correct endpoint"() {
 		given:
 		def respMap = [test: "test1",other: "test2"]
 		1*mockEndpoint.get([path: '/heartbeat']) >> [data : respMap]
+		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
+		1 * mockEndpoint.setContentType(ContentType.JSON)
 		when:
+		sut = new StockfighterApi(key,account,venue,stock,mockEndpoint)
 		def data = sut.getHeartbeat()
 		then:
 		respMap == data

@@ -12,7 +12,7 @@ class StockfighterApi {
 	private def stockfighter
 	private def account
 
-	StockfighterApi(apiKey, account, defaultVenue,defaultStock,client=defaultClient) {
+	StockfighterApi(apiKey,account,defaultVenue,defaultStock,client=defaultClient) {
 		this.defaultVenue = defaultVenue
 		this.defaultStock = defaultStock
 		this.account = account
