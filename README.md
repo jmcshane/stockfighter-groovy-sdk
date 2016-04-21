@@ -1,1 +1,1 @@
-"# stockfighter-groovy-sdk" 
+# Stockfighter Groovy SDK 
