@@ -15,4 +15,5 @@ cache:
   - $HOME/.gradle
 
 script:
+  - chmod +x gradlew
   - ./gradlew build
