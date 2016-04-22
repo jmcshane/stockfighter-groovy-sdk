@@ -7,10 +7,18 @@ buildscript {
     }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin: 'cobertura'			
+plugins {
+	id "org.sonarqube" version "1.2"
+	id 'groovy'
+	id 'eclipse'
+}
 
+apply plugin: 'cobertura'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+description = 'Stockfighter groovy sdk meant to be a flexible API for Java'
+
+version = '0.1.0-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -28,3 +36,17 @@ dependencies {
 }
 
 test.finalizedBy(project.tasks.cobertura)
+
+cobertura {
+	coverageFormats = ['xml']
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://ec2-54-83-154-236.compute-1.amazonaws.com/"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.language", "grvy"
+        property "sonar.grvy.coveragePlugin", "cobertura"
+        property "sonar.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
+    }
+}
