@@ -39,14 +39,15 @@ test.finalizedBy(project.tasks.cobertura)
 project.tasks.cobertura.finalizedBy(project.tasks.sonarqube)
 
 cobertura {
-	coverageFormats = ['xml']
+	coverageFormats = ['xml','html']
 }
 
 sonarqube {
     properties {
         property "sonar.host.url", "http://ec2-54-83-154-236.compute-1.amazonaws.com/"
         property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.java.coveragePlugin", "cobertura"
-        property "sonar.cobertura.reportPath", file("./build/reports/cobertura/coverage.xml")
+        property "sonar.tests", "src/test/groovy"
+        property "sonar.groovy.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
+        property "sonar.junit.reportsPath", "$buildDir/test-results"
     }
 }
