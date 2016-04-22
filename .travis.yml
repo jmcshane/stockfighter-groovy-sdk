@@ -1,11 +1,5 @@
 language: java
 
-jdk:
-  - oraclejdk8
-
-os:
-  - linux
-
 branches:
   only:
     - master
@@ -14,6 +8,8 @@ cache:
   directories:
   - $HOME/.gradle
 
-script:
+before_install:
   - chmod +x gradlew
+
+script:
   - ./gradlew build
