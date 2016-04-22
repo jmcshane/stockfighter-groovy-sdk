@@ -36,6 +36,7 @@ dependencies {
 }
 
 test.finalizedBy(project.tasks.cobertura)
+sonarqube.finalizedBy(project.tasks.sonarqube)
 
 cobertura {
 	coverageFormats = ['xml']
@@ -47,6 +48,6 @@ sonarqube {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.language", "grvy"
         property "sonar.grvy.coveragePlugin", "cobertura"
-        property "sonar.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
+        property "sonar.cobertura.reportPath", file("./build/reports/cobertura/coverage.xml")
     }
 }

@@ -15,5 +15,4 @@ before_install:
   - chmod +x gradlew
 
 script:
-  - ./gradlew test
-  - ./gradlew sonarqube -Dsonar.login=$SONAR_USER -Dsonar.password=$SONAR_PASSWORD
+  - ./gradlew test sonarqube -Dsonar.login=$SONAR_USER -Dsonar.password=$SONAR_PASSWORD
