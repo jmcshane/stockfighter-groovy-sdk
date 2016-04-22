@@ -1,5 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.3.1'			
+    }
+}
+
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
+apply plugin: 'cobertura'			
+
 
 repositories {
 	mavenCentral()
@@ -10,7 +21,10 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.5'
     compile 'javax.websocket:javax.websocket-api:1.1'
 	compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+	compile 'org.slf4j:slf4j-api:1.7.21'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'junit:junit:4.12'
     testCompile 'cglib:cglib:3.2.2'
 }
+
+test.finalizedBy(project.tasks.cobertura)

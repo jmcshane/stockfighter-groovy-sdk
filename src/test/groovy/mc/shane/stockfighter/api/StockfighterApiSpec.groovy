@@ -11,12 +11,11 @@ class StockfighterApiSpec extends Specification {
 	def venue = "testvenue"
 	def stock = "teststock"
 	def key = "testkey"
-
+	def respMap = [test: "test1",other: "test2"]
 	def sut
 
-	def "venue heartbeat hits correct endpoint"() {
+	def "heartbeat hits correct endpoint"() {
 		given:
-		def respMap = [test: "test1",other: "test2"]
 		1*mockEndpoint.get([path: '/heartbeat']) >> [data : respMap]
 		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
 		1 * mockEndpoint.setContentType(ContentType.JSON)
@@ -27,8 +26,28 @@ class StockfighterApiSpec extends Specification {
 		respMap == data
 	}
 
-	def "heartbeat has correct http parameters"() {
+	def "venue heartbeat has correct default http parameters"() {
+		given:
+		1*mockEndpoint.get([path: '/venues/testvenue/heartbeat']) >> [data : respMap]
+		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
+		1 * mockEndpoint.setContentType(ContentType.JSON)
+		when:
+		sut = new StockfighterApi(key,account,venue,stock,mockEndpoint)
+		def data = sut.getVenueHeartbeat()
+		then:
+		respMap == data
+	}
 
+	def "venue heartbeat has correct parameters when specified value"() {
+		given:
+		1*mockEndpoint.get([path: '/venues/othervenue/heartbeat']) >> [data : respMap]
+		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
+		1 * mockEndpoint.setContentType(ContentType.JSON)
+		when:
+		sut = new StockfighterApi(key,account,venue,stock,mockEndpoint)
+		def data = sut.getVenueHeartbeat('othervenue')
+		then:
+		respMap == data		
 	}
 
 	def "venue stocks builds url correctly"() {
