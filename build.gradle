@@ -49,7 +49,7 @@ sonarqube {
     properties {
         property "sonar.host.url", "http://ec2-54-83-154-236.compute-1.amazonaws.com/"
         property "sonar.sourceEncoding", "UTF-8"
-        property "sonar.tests", "src/test/groovy"
+        property "sonar.tests", "src/test/groovy,src/integration-test/java"
         property "sonar.groovy.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
         property "sonar.junit.reportsPath", "$buildDir/test-results"
     }
