@@ -16,7 +16,7 @@ class StockfighterApiSpec extends Specification {
 
 	def "heartbeat hits correct endpoint"() {
 		given:
-		1*mockEndpoint.get([path: '/heartbeat']) >> [data : respMap]
+		1*mockEndpoint.get([path: 'heartbeat']) >> [data : respMap]
 		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
 		1 * mockEndpoint.setContentType(ContentType.JSON)
 		when:
@@ -28,7 +28,7 @@ class StockfighterApiSpec extends Specification {
 
 	def "venue heartbeat has correct default http parameters"() {
 		given:
-		1*mockEndpoint.get([path: '/venues/testvenue/heartbeat']) >> [data : respMap]
+		1*mockEndpoint.get([path: 'venues/testvenue/heartbeat']) >> [data : respMap]
 		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
 		1 * mockEndpoint.setContentType(ContentType.JSON)
 		when:
@@ -40,7 +40,7 @@ class StockfighterApiSpec extends Specification {
 
 	def "venue heartbeat has correct parameters when specified value"() {
 		given:
-		1*mockEndpoint.get([path: '/venues/othervenue/heartbeat']) >> [data : respMap]
+		1*mockEndpoint.get([path: 'venues/othervenue/heartbeat']) >> [data : respMap]
 		1 * mockEndpoint.setHeaders(['X-Starfighter-Authorization':'testkey'])
 		1 * mockEndpoint.setContentType(ContentType.JSON)
 		when:
