@@ -3,7 +3,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.saliman:gradle-cobertura-plugin:2.3.1'			
+        classpath 'net.saliman:gradle-cobertura-plugin:2.3.1'
+        classpath 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.0.2'			
     }
 }
 
@@ -11,6 +12,7 @@ plugins {
 	id "org.sonarqube" version "1.2"
 	id 'groovy'
 	id 'eclipse'
+    id 'org.unbroken-dome.test-sets' version '1.1.0'
 }
 
 apply plugin: 'cobertura'
@@ -30,6 +32,7 @@ dependencies {
     compile 'javax.websocket:javax.websocket-api:1.1'
 	compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 	compile 'org.slf4j:slf4j-api:1.7.21'
+    runtime 'ch.qos.logback:logback-classic:1.1.7'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'junit:junit:4.12'
     testCompile 'cglib:cglib:3.2.2'
@@ -50,4 +53,12 @@ sonarqube {
         property "sonar.groovy.cobertura.reportPath", file("$buildDir/reports/cobertura/coverage.xml")
         property "sonar.junit.reportsPath", "$buildDir/test-results"
     }
+}
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+tasks.withType(Test) {
+    systemProperties System.properties
 }
